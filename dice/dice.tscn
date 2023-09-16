@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://is4yjy3kgv7x"]
+
+[ext_resource type="Script" path="res://dice/dice.gd" id="1_btlhy"]
+[ext_resource type="PackedScene" uid="uid://b6demafgujq7i" path="res://dice/kostka.glb" id="1_wttrc"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xgtw6"]
+friction = 0.45
+bounce = 0.22
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kcs2v"]
+size = Vector3(2.01203, 2.00549, 2.00763)
+
+[node name="dice" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_xgtw6")
+gravity_scale = 5.0
+script = ExtResource("1_btlhy")
+
+[node name="kostka" parent="." instance=ExtResource("1_wttrc")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_kcs2v")
+
+[node name="throwTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="detect1" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.933011, 0.00324476, -0.000582099)
+enabled = false
+target_position = Vector3(-0.4, 0, 0)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="detect2" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00324476, 0.935997)
+enabled = false
+target_position = Vector3(0, 0, 0.4)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="detect3" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.912391, 0)
+enabled = false
+target_position = Vector3(0, 0.4, 0)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="detect4" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.923679, 0)
+enabled = false
+target_position = Vector3(0, -0.4, 0)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="detect5" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00324476, -0.903369)
+enabled = false
+target_position = Vector3(0, 0, -0.4)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="detect6" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.908184, 0.00324476, -0.000582099)
+enabled = false
+target_position = Vector3(0.4, 0, 0)
+collide_with_areas = true
+collide_with_bodies = false
+
+[connection signal="timeout" from="throwTimer" to="." method="_on_throw_timer_timeout"]
