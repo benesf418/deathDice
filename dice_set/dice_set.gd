@@ -1,4 +1,5 @@
 extends Node3D
+class_name DiceSet
 
 var dice_list: Array[Dice]
 var dice_values: Dictionary
