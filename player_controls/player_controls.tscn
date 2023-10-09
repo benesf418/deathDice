@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6p5756x7i5r3"]
+
+[ext_resource type="Script" path="res://player_controls/player_controls.gd" id="1_f8txf"]
+
+[node name="PlayerControls" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f8txf")
+
+[node name="ThrowButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 63.0
+offset_top = -91.0
+offset_right = 191.0
+offset_bottom = -40.0
+grow_vertical = 0
+text = "Throw"
+
+[node name="ResetButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 61.0
+offset_top = -161.0
+offset_right = 187.0
+offset_bottom = -111.0
+grow_vertical = 0
+text = "Reset Dice"
+
+[connection signal="button_up" from="ThrowButton" to="." method="_on_throw_button_button_up"]
+[connection signal="button_up" from="ResetButton" to="." method="_on_reset_button_button_up"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc8hq6bbplle6"]
+
+[ext_resource type="Script" path="res://dice_set/dice_set.gd" id="1_a0314"]
+[ext_resource type="PackedScene" uid="uid://is4yjy3kgv7x" path="res://dice/dice.tscn" id="1_e5x73"]
+
+[node name="DiceSet" type="Node3D"]
+script = ExtResource("1_a0314")
+
+[node name="dice" type="Node3D" parent="."]
+
+[node name="dice1" parent="dice" instance=ExtResource("1_e5x73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.200901, -0.00938642, -0.882764)
+
+[node name="dice3" parent="dice" instance=ExtResource("1_e5x73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.51583, 0.985293, -1.42866)
+
+[node name="dice4" parent="dice" instance=ExtResource("1_e5x73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.57294, -1.21761, 1.07884)
+
+[node name="dice5" parent="dice" instance=ExtResource("1_e5x73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.81573, -0.415596, 1.53544)
+
+[node name="dice2" parent="dice" instance=ExtResource("1_e5x73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51214, 0.55579, -1.42866)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://stpotr6vg41g"]
 
+[ext_resource type="PackedScene" uid="uid://cmbtmsp2ib4jd" path="res://player/player.tscn" id="2_c58e2"]
 [ext_resource type="PackedScene" uid="uid://dy1qj4flvvmma" path="res://board/board.tscn" id="2_uiupc"]
-[ext_resource type="PackedScene" uid="uid://dc8hq6bbplle6" path="res://dice_set/dice_set.tscn" id="3_bd645"]
 
 [node name="Game" type="Node3D"]
 
@@ -11,22 +11,8 @@ transform = Transform3D(1, 0, 0, 0, 0.525679, 0.850683, 0, -0.850683, 0.525679, 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.75, -0.5, -0.433013, 0.5, -3.78552e-08, 0.866025, -0.433013, -0.866025, 0.25, 0, 12.6773, 0)
 
-[node name="board" parent="." instance=ExtResource("2_uiupc")]
+[node name="Board" parent="." instance=ExtResource("2_uiupc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.49788, 0)
 
-[node name="DiceSet" parent="." instance=ExtResource("3_bd645")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.2512)
-
-[node name="playerControls" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="throwButton" type="Button" parent="playerControls"]
-layout_mode = 0
-offset_left = 536.0
-offset_top = 552.0
-offset_right = 664.0
-offset_bottom = 603.0
-text = "Throw"
+[node name="Player" parent="." node_paths=PackedStringArray("board") instance=ExtResource("2_c58e2")]
+board = NodePath("../Board")

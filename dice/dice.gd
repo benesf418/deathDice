@@ -10,6 +10,11 @@ var numberRaycasts: Array[RayCast3D]
 var resetable: bool = false
 var throwable: bool = true
 
+var mouse_hover: bool = false
+
+var resting_position: Vector3
+var is_rested = false
+
 func _ready():
 	numberRaycasts = [
 		$detect1,
@@ -27,6 +32,10 @@ func _ready():
 func _physics_process(delta):
 	if linear_velocity.length() + angular_velocity.length() < 0.05 and freezable and !freeze:
 		finish_throw()
+	
+	if mouse_hover and Input.is_action_pressed("m_left_pressed") and resetable:
+		global_position = resting_position
+		is_rested = true
 
 func finish_throw():
 	freeze = true
@@ -50,7 +59,6 @@ func finish_throw():
 			throw(0.3)
 		else:
 			throw(-0.3)
-	
 
 func reset():
 	position = starting_position
@@ -60,6 +68,7 @@ func reset():
 	rotate_x(randi_range(0, 6)*90)
 	resetable = false
 	throwable = true
+	is_rested = false
 
 func throw(force:float = 1):
 	$throwTimer.start()
@@ -74,3 +83,10 @@ func throw(force:float = 1):
 func _on_throw_timer_timeout():
 	freezable = true
 	$throwTimer.stop()
+
+
+func _on_mouse_entered():
+	mouse_hover = true
+
+func _on_mouse_exited():
+	mouse_hover = false

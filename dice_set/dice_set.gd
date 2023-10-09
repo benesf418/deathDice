@@ -3,30 +3,50 @@ class_name DiceSet
 
 var dice_list: Array[Dice]
 var dice_values: Dictionary
-
 var combo: DiceCombo = null
 
-# Called when the node enters the scene tree for the first time.
+var second_throw: bool = false
+
+#assigned by parent on ready
+var board: Board
+
 func _ready():
 	for dice in $dice.get_children():
 		dice_list.push_back(dice)
 		dice_values[dice.name] = -1
 		dice.throw_finished.connect(dice_throw_finished)
 
-func _input(delta):
-	if Input.is_action_pressed("reset_dice"):
-		for dice in dice_list:
+func set_board(board:Board):
+	var dice_index = 0
+	for dice in dice_list:
+		dice.resting_position = board.resting_positions[dice_index].global_position
+		dice_index += 1
+
+func reset():
+	for dice in dice_list:
 			if !dice.resetable:
 				return
-		for dice in dice_list:
+	
+	for dice in dice_list:
+		if !dice.is_rested or second_throw:
 			dice.reset()
-		for key in dice_values.keys():
+	
+	for key in dice_values.keys():
+		if !get_node("dice/"+key).is_rested:
 			dice_values[key] = -1
-	if Input.is_action_pressed("m_left_pressed"):
-		for dice in dice_list:
-			if !dice.throwable:
-				return
-		for dice in dice_list:
+	
+	if !second_throw:
+		second_throw = true
+	else:
+		second_throw = false
+
+func throw():
+	for dice in dice_list:
+		if !dice.throwable and !dice.is_rested:
+			return
+	
+	for dice in dice_list:
+		if !dice.is_rested:
 			dice.throw()
 
 func get_throw_combo():
@@ -36,7 +56,7 @@ func get_throw_combo():
 	
 	var counts: Array[int]
 	
-	#get counts
+	#get counts for 1-6 dice values
 	for i in range(1, 7):
 		counts.push_back(0)
 		for value in values:
@@ -48,6 +68,7 @@ func get_throw_combo():
 		print(new_combo.compare(combo))
 	combo = new_combo
 
+#a dice calls this when it's throw finishes
 func dice_throw_finished(dice_name:String, value:int):
 	dice_values[dice_name] = value
 	for key in dice_values.keys():

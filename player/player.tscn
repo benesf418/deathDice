@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmbtmsp2ib4jd"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_21acv"]
+[ext_resource type="PackedScene" uid="uid://dc8hq6bbplle6" path="res://dice_set/dice_set.tscn" id="1_ydbqf"]
+[ext_resource type="PackedScene" uid="uid://b6p5756x7i5r3" path="res://player_controls/player_controls.tscn" id="2_ck6i8"]
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_21acv")
+
+[node name="DiceSet" parent="." instance=ExtResource("1_ydbqf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.2512)
+
+[node name="PlayerControls" parent="." instance=ExtResource("2_ck6i8")]
+
+[connection signal="reset" from="PlayerControls" to="." method="_on_player_controls_reset"]
+[connection signal="throw" from="PlayerControls" to="." method="_on_player_controls_throw"]
