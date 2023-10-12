@@ -14,7 +14,8 @@ func _ready():
 	for dice in $dice.get_children():
 		dice_list.push_back(dice)
 		dice_values[dice.name] = -1
-		dice.throw_finished.connect(dice_throw_finished)
+		dice.throw_finished.connect(on_dice_throw_finished)
+		dice.reseted.connect(on_dice_reseted)
 
 func set_board(board:Board):
 	var dice_index = 0
@@ -68,10 +69,14 @@ func get_throw_combo():
 		print(new_combo.compare(combo))
 	combo = new_combo
 
-#a dice calls this when it's throw finishes
-func dice_throw_finished(dice_name:String, value:int):
+func on_dice_throw_finished(dice_name:String, value:int):
 	dice_values[dice_name] = value
 	for key in dice_values.keys():
 		if  dice_values[key] == -1:
 			return
+	for dice in dice_list:
+		dice.rest()
 	get_throw_combo()
+
+func on_dice_reseted(dice_name:String):
+	dice_values[dice_name] = -1

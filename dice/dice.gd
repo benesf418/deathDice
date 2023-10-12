@@ -2,6 +2,7 @@ extends RigidBody3D
 class_name Dice
 
 signal throw_finished
+signal reseted
 
 var freezable = false
 var starting_position: Vector3
@@ -33,9 +34,12 @@ func _physics_process(delta):
 	if linear_velocity.length() + angular_velocity.length() < 0.05 and freezable and !freeze:
 		finish_throw()
 	
-	if mouse_hover and Input.is_action_pressed("m_left_pressed") and resetable:
-		global_position = resting_position
-		is_rested = true
+	if mouse_hover and Input.is_action_just_released("m_left_pressed") and is_rested:
+		reset()
+
+func rest():
+	global_position = resting_position
+	is_rested = true
 
 func finish_throw():
 	freeze = true
@@ -69,6 +73,7 @@ func reset():
 	resetable = false
 	throwable = true
 	is_rested = false
+	emit_signal('reseted', name)
 
 func throw(force:float = 1):
 	$throwTimer.start()

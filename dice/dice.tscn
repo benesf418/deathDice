@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://is4yjy3kgv7x"]
+[gd_scene load_steps=12 format=3 uid="uid://is4yjy3kgv7x"]
 
 [ext_resource type="Script" path="res://dice/dice.gd" id="1_btlhy"]
 [ext_resource type="Texture2D" uid="uid://do4ek0brirpsq" path="res://dice/kostka_kostka.png" id="2_uvpaf"]
+[ext_resource type="Shader" path="res://dice/select.gdshader" id="3_natob"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xgtw6"]
 friction = 0.45
@@ -97,6 +98,14 @@ shadow_mesh = SubResource("ArrayMesh_mj0ag")
 [sub_resource type="BoxShape3D" id="BoxShape3D_kcs2v"]
 size = Vector3(2.01203, 2.00549, 2.00763)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8wxiq"]
+render_priority = 0
+shader = ExtResource("3_natob")
+
+[sub_resource type="BoxMesh" id="BoxMesh_65w16"]
+material = SubResource("ShaderMaterial_8wxiq")
+size = Vector3(2.1, 2.1, 2.1)
+
 [node name="dice" type="RigidBody3D"]
 physics_material_override = SubResource("PhysicsMaterial_xgtw6")
 gravity_scale = 5.0
@@ -153,6 +162,10 @@ enabled = false
 target_position = Vector3(0.4, 0, 0)
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="SelectEffect" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_65w16")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
