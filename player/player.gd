@@ -10,3 +10,7 @@ func _on_player_controls_throw():
 
 func _on_player_controls_reset():
 	$DiceSet.reset()
+
+
+func _on_player_controls_predict_throw():
+	$DiceSet.predict_throw()

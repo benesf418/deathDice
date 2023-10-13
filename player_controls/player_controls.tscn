@@ -23,6 +23,19 @@ offset_bottom = -40.0
 grow_vertical = 0
 text = "Throw"
 
+[node name="PredictThrowButton" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = -263.0
+offset_right = 188.0
+offset_bottom = -212.0
+grow_vertical = 0
+text = "predict throw"
+
 [node name="ResetButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 2
@@ -36,4 +49,5 @@ grow_vertical = 0
 text = "Reset Dice"
 
 [connection signal="button_up" from="ThrowButton" to="." method="_on_throw_button_button_up"]
+[connection signal="button_up" from="PredictThrowButton" to="." method="_on_predict_throw_button_button_up"]
 [connection signal="button_up" from="ResetButton" to="." method="_on_reset_button_button_up"]

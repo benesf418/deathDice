@@ -6,7 +6,11 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xgtw6"]
 friction = 0.45
+rough = true
 bounce = 0.22
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kcs2v"]
+size = Vector3(2.01203, 2.00549, 2.00763)
 
 [sub_resource type="Shader" id="Shader_qrejk"]
 code = "shader_type spatial;
@@ -95,9 +99,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_mj0ag")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kcs2v"]
-size = Vector3(2.01203, 2.00549, 2.00763)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8wxiq"]
 render_priority = 0
 shader = ExtResource("3_natob")
@@ -111,52 +112,54 @@ physics_material_override = SubResource("PhysicsMaterial_xgtw6")
 gravity_scale = 5.0
 script = ExtResource("1_btlhy")
 
-[node name="Cube" type="MeshInstance3D" parent="."]
-mesh = SubResource("ArrayMesh_vgpll")
-skeleton = NodePath("")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_kcs2v")
 
 [node name="throwTimer" type="Timer" parent="."]
 wait_time = 0.1
 
-[node name="detect1" type="RayCast3D" parent="."]
+[node name="Representation" type="Node3D" parent="."]
+
+[node name="Cube" type="MeshInstance3D" parent="Representation"]
+mesh = SubResource("ArrayMesh_vgpll")
+skeleton = NodePath("")
+
+[node name="detect1" type="RayCast3D" parent="Representation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.933011, 0.00324476, -0.000582099)
 enabled = false
 target_position = Vector3(-0.4, 0, 0)
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="detect2" type="RayCast3D" parent="."]
+[node name="detect2" type="RayCast3D" parent="Representation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00324476, 0.935997)
 enabled = false
 target_position = Vector3(0, 0, 0.4)
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="detect3" type="RayCast3D" parent="."]
+[node name="detect3" type="RayCast3D" parent="Representation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.912391, 0)
 enabled = false
 target_position = Vector3(0, 0.4, 0)
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="detect4" type="RayCast3D" parent="."]
+[node name="detect4" type="RayCast3D" parent="Representation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.923679, 0)
 enabled = false
 target_position = Vector3(0, -0.4, 0)
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="detect5" type="RayCast3D" parent="."]
+[node name="detect5" type="RayCast3D" parent="Representation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00324476, -0.903369)
 enabled = false
 target_position = Vector3(0, 0, -0.4)
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="detect6" type="RayCast3D" parent="."]
+[node name="detect6" type="RayCast3D" parent="Representation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.908184, 0.00324476, -0.000582099)
 enabled = false
 target_position = Vector3(0.4, 0, 0)

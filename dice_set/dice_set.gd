@@ -15,6 +15,7 @@ func _ready():
 		dice_list.push_back(dice)
 		dice_values[dice.name] = -1
 		dice.throw_finished.connect(on_dice_throw_finished)
+		dice.prediction_throw_finished.connect(on_dice_prediction_throw_finished)
 		dice.reseted.connect(on_dice_reseted)
 
 func set_board(board:Board):
@@ -41,14 +42,18 @@ func reset():
 	else:
 		second_throw = false
 
-func throw():
+func predict_throw():
+	for dice in dice_list:
+		dice.throw(1, true)
+
+func throw(predict_first = true):
 	for dice in dice_list:
 		if !dice.throwable and !dice.is_rested:
 			return
 	
 	for dice in dice_list:
 		if !dice.is_rested:
-			dice.throw()
+			dice.throw(1, predict_first)
 
 func get_throw_combo():
 	var values: Array[int]
@@ -77,6 +82,15 @@ func on_dice_throw_finished(dice_name:String, value:int):
 	for dice in dice_list:
 		dice.rest()
 	get_throw_combo()
+
+func on_dice_prediction_throw_finished():
+	for dice in dice_list:
+#		dice.visible = false
+		if dice.prediction_in_process:
+			return
+	for dice in dice_list:
+		dice.visible = true
+	throw(false)
 
 func on_dice_reseted(dice_name:String):
 	dice_values[dice_name] = -1
